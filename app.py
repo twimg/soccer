@@ -37,3 +37,33 @@ ax.fill(angles, stats, alpha=0.3)
 ax.set_xticks(angles[:-1])
 ax.set_xticklabels(labels)
 st.pyplot(fig)
+
+# --- 以下を最後に追加 ---
+
+st.subheader("試合シミュレーション")
+
+tactics = st.selectbox("チーム戦術を選択", ["攻撃的", "バランス", "守備的"])
+if st.button("試合開始！"):
+    # 総合能力の平均でチーム戦力を計算（全選手の各能力平均の合計値）
+    team_strength = df[labels].mean().mean()
+    # 戦術補正
+    if tactics == "攻撃的":
+        team_strength *= 1.1
+    elif tactics == "守備的":
+        team_strength *= 0.9
+
+    # 相手戦力（ランダム、必要ならCPUチームも可）
+    import random
+    opponent_strength = random.uniform(65, 80)
+
+    if team_strength > opponent_strength:
+        result = "勝利！"
+    elif team_strength < opponent_strength:
+        result = "敗北"
+    else:
+        result = "引き分け"
+
+    st.subheader(f"試合結果：{result}")
+    st.text(f"自チーム戦力：{int(team_strength)}")
+    st.text(f"相手チーム戦力：{int(opponent_strength)}")
+
