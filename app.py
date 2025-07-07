@@ -67,3 +67,4 @@ if st.button("試合開始！"):
     st.text(f"自チーム戦力：{int(team_strength)}")
     st.text(f"相手チーム戦力：{int(opponent_strength)}")
 
+st.write("ここは一番下です。見えますか？")
